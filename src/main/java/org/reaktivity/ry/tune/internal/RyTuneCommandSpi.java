@@ -13,13 +13,19 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-module org.reaktivity.ry.tune
+package org.reaktivity.ry.tune.internal;
+
+import org.reaktivity.ry.RyCommandSpi;
+import org.reaktivity.ry.tune.internal.command.RyTuneCommand;
+
+import com.github.rvesse.airline.builder.CliBuilder;
+
+public final class RyTuneCommandSpi implements RyCommandSpi
 {
-    requires org.reaktivity.ry;
-
-    opens org.reaktivity.ry.tune.internal.command
-       to com.github.rvesse.airline;
-
-    provides org.reaktivity.ry.RyCommandSpi
-        with org.reaktivity.ry.tune.internal.RyTuneCommandSpi;
+    @Override
+    public void mixin(
+        CliBuilder<Runnable> builder)
+    {
+        builder.withCommand(RyTuneCommand.class);
+    }
 }
